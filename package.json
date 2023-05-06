@@ -1,0 +1,45 @@
+{
+  "name": "reacts",
+  "version": "1.0.0",
+  "description": "A React state management made easy",
+  "author": "Edgar Bermejo",
+  "license": "MIT",
+  "main": "dist/bundle-cjs.min.cjs",
+  "module": "dist/bundle-esm.min.mjs",
+  "source": "src/index.ts",
+  "types": "dist/bundle.min.cjs.d.ts",
+  "type": "module",
+  "keywords": [
+    "react",
+    "state",
+    "management"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build",
+    "build": "npm run compile",
+    "compile": "rollup -c",
+    "clean": "rm -rf dist/core dist/hook dist/middleware dist/plugin dist/utils"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/bundle-esm.min.mjs",
+      "require": "./dist/bundle-cjs.min.cjs"
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.1",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "@types/node": "^20.1.0",
+    "@types/use-sync-external-store": "^0.0.3",
+    "rollup": "^3.21.5",
+    "tslib": "^2.5.0"
+  },
+  "dependencies": {
+    "@redux-devtools/extension": "^3.2.5",
+    "use-sync-external-store": "^1.2.0"
+  }
+}

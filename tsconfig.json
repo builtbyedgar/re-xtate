@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "react",
+    "skipLibCheck": false,
+    "lib": ["ES2015", "DOM"],
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "importHelpers": false,
+  },
+  "include": ["src/core", "src/hook", "src/middleware", "src/plugin", "src/utils"],
+  "exclude": ["src/test"]
+}
