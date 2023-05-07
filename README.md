@@ -1,10 +1,10 @@
-# ReXtate
+# Rextate
 
 ⚛️ Another React state management but made easy.
 
 <br >
 
-🚨 **IMPORTANT:** ReXtate is still a pre-release.
+🚨 **IMPORTANT:** Rextate is still a pre-release.
 
 <br >
 <br >
@@ -154,7 +154,7 @@ more convenient to use directly, as shown in the example. This allows us to use 
 
 ### `globalComputed`
 
-**ReXtate**, derived states are referred to as "computed" states, and we can create them using the
+**Rextate**, derived states are referred to as "computed" states, and we can create them using the
 `globalComputed` method. Computed states cache their value and recalculate it only when any of the states or
 computes states they depend on change. Think of them as something similar to React's `useMemo` hook.
 
