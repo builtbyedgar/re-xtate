@@ -1,10 +1,10 @@
-# ReXtate
+# Rextate
 
 ⚛️ Another React state management but made easy.
 
 <br >
 
-🚨 **IMPORTANT:** ReXtate is still a pre-release.
+🚨 **IMPORTANT:** Rextate is still a pre-release.
 
 <br >
 <br >
