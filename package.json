@@ -1,6 +1,6 @@
 {
-  "name": "reacts",
-  "version": "0.0.1",
+  "name": "re-xtate",
+  "version": "0.1.0",
   "description": "A React state management made easy",
   "author": "Edgar Bermejo",
   "license": "MIT",
@@ -24,12 +24,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "npm run prepare",
-    "prepare": "rm -rf package && npm run build",
-    "build": "npm run compile && npm run copy && npm run clean",
-    "compile": "rollup -c",
-    "copy": "cp src/types.d.ts ./package/dist && cp LICENSE ./package && cp README.md ./package && cp package.json ./package",
-    "clean": "rm -rf package/dist/core package/dist/hook dpackage/ist/middleware package/dist/plugin package/dist/utils"
+    "build": "rollup -c"
   },
   "exports": {
     ".": {
