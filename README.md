@@ -2,6 +2,9 @@
 
 ⚛️ Another React state management but made easy.
 
+🚨 **IMPORTANT:** ReXtate is still in beta. It has not been tested or hit hard. If you wish you can help me to improve it 😉. 
+
+
 [![npm version](https://badge.fury.io/js/re-xtate.svg)](https://badge.fury.io/js/re-xtate)
 
 
@@ -14,9 +17,10 @@ yarn add re-xtate
 ```
 
 ### Decentralized model
-The chosen model for designing the library is the decentralized model. In this model, many 
-small states are decoupled from the React tree, allowing components to connect only to the 
-states they use. Examples of libraries that follow this model are [Recoil](https://recoiljsorg/) 
+
+The chosen model for designing the library is the decentralized model. In this model, many
+small states are decoupled from the React tree, allowing components to connect only to the
+states they use. Examples of libraries that follow this model are [Recoil](https://recoiljsorg/)
 and [Jōtai](https://github.com/pmndrs/jotai/).
 
 The main idea behind this approach is to decentralize and atomize global states, effectively
@@ -70,17 +74,15 @@ todosState.set((todos) => [
 ])
 ```
 
-In the example above, we define three global states: `countState`, `loadingState`, and `todosState`. 
+In the example above, we define three global states: `countState`, `loadingState`, and `todosState`.
 We initialize them with their initial values and specify a unique key for each state. To retrieve the
-current values of the states, we use the `get()` method on each state. And to update the states, we 
+current values of the states, we use the `get()` method on each state. And to update the states, we
 use the `set()` method, passing the new value directly or providing a callback function to modify the
 existing value.
 
-
-
 ### `useGlobalState`
 
-To subscribe to a global state within our components, we can utilize the `useGlobalState` hook. However, 
+To subscribe to a global state within our components, we can utilize the `useGlobalState` hook. However,
 if we only need to obtain the value of a global state without causing our component to re-render,
 we can still use the `get` method of our state.
 
@@ -113,7 +115,7 @@ const countState = globalState(
     // Action to increase value
     increment: () => set((count) => count + 1),
     decrement: () => set((count) => count - 1),
-    reset: () => set(0)
+    reset: () => set(0),
   }),
   { key: 'count' }
 )
@@ -131,34 +133,35 @@ reset()
 ```
 
 In the code above, we define the actions object within the `globalState` method. It contains methods
-that allow us to update the state. In this example, we have increment, decrement, and reset actions 
+that allow us to update the state. In this example, we have increment, decrement, and reset actions
 for the `countState`.
 
 To use these actions, we call them using the actions property of the state, like `countState.actions.increment()`.
 This will update the state accordingly.
 
 Alternatively, and as I personally suggest, we can destructure the actions from the actions object, making them
-more convenient to use directly, as shown in the example. This allows us to use the actions directly as `increment()`, 
+more convenient to use directly, as shown in the example. This allows us to use the actions directly as `increment()`,
 `decrement()`, and `reset()`.
 
 ### `globalComputed`
 
-**ReXtate**, derived states are referred to as "computed" states, and we can create them using the 
-`globalComputed` method. Computed states cache their value and recalculate it only when any of the states or 
+**ReXtate**, derived states are referred to as "computed" states, and we can create them using the
+`globalComputed` method. Computed states cache their value and recalculate it only when any of the states or
 computes states they depend on change. Think of them as something similar to React's `useMemo` hook.
 
 `globalComputed` has the following API:
 
 - `state: State<T, A>`: the states it depends on.
 - `actionCreator: ActionCreator<T, A>`: function that creates the actions to recalculate the state.
-- `config?: Config`:  Config: configuration object.
-  
+- `config?: Config`: Config: configuration object.
 
 ```ts
 // globalComputed
 const totalTodos = globalComputed(todosState, (todos) => todos.length)
 
-const completedTodos = globalComputed(todosState, (todos) => todos.filter(todo => todo.completed))
+const completedTodos = globalComputed(todosState, (todos) =>
+  todos.filter((todo) => todo.completed)
+)
 
 // Depends on one state and another computed state.
 const todoStats = globalComputed(
@@ -166,14 +169,14 @@ const todoStats = globalComputed(
   completedTodos,
   (total, completed) => ({
     done: completed.length,
-    percent: (completed.length / done) * 100
+    percent: (completed.length / done) * 100,
   })
 )
 ```
 
-In the example above, we define three computed states: `totalTodos`, `completedTodos`, and `todoStats`. 
+In the example above, we define three computed states: `totalTodos`, `completedTodos`, and `todoStats`.
 `totalTodos` calculates the total number of todos from the `todosState`, while completedTodos filters
-the `todosState` to get only the completed todos. `todoStats` depends on both the `totalTodos` state 
+the `todosState` to get only the completed todos. `todoStats` depends on both the `totalTodos` state
 and the `completedTodos` computed state, and it calculates the number of completed todos and the percentage of completion.
 
 We can use computed states just like regular states:
@@ -207,7 +210,7 @@ const todosState = state([], (set) => ({
     const json = await response.json()
 
     set(json)
-  }
+  },
 }))
 ```
 
@@ -220,9 +223,7 @@ pure, clean and without side-effects, you may not need it.
 const loadingState = globalState(false, null, { key: 'loading' })
 
 const todosState = globalState(
-  [
-    { id: '3485-owjx-f3f9', task: 'Become a JS ninja', status: 'PENDING' },
-  ],
+  [{ id: '3485-owjx-f3f9', task: 'Become a JS ninja', status: 'PENDING' }],
   (set) => ({
     add: () => {
       loadingState.set(true)
@@ -234,13 +235,13 @@ const todosState = globalState(
       } finally {
         loadingState.set(false)
       }
-    }
+    },
   }),
   { key: 'todos' }
 )
-``` 
+```
 
-In the code above, we have an example of handling asynchronous states. The `todoState` is a 
+In the code above, we have an example of handling asynchronous states. The `todoState` is a
 simple state that can be updated using the set method.
 
 We also define a function `getTodos` that performs an asynchronous operation, such as fetching
@@ -248,7 +249,6 @@ data from a URL, and updates the todoState using the set method.
 
 Additionally, we demonstrate the creation of async actions within the `todosState`. The `todosState`
 has an action called fetch that fetches data from a specified URL and updates the state accordingly.
-
 
 ##### Project status
 
@@ -263,4 +263,4 @@ has an action called fetch that fetches data from a specified URL and updates th
 - [x] Refactor (API, improvemnts)
 - [ ] Testing
 - [-] Docs
-- [x] Publish on NPM [npm]([www.npmjs.com](https://badge.fury.io/js/re-xtate))
+- [x] Publish on NPM [npm](https://www.npmjs.com/package/re-xtate)
