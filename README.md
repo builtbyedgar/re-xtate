@@ -2,7 +2,12 @@
 
 ⚛️ Another React state management but made easy.
 
-🚨 **IMPORTANT:** ReXtate is still in beta. It has not been tested or hit hard. If you wish you can help me to improve it 😉. 
+<br >
+
+🚨 **IMPORTANT:** ReXtate is still a pre-release.
+
+<br >
+<br >
 
 
 [![package version](https://img.shields.io/github/package-json/v/builtbyedgar/re-xtate)](https://img.shields.io/github/package-json/v/builtbyedgar/re-xtate)
