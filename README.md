@@ -1,33 +1,45 @@
-# Reacts®
+# ReXtate
 
-⚛️ A React state management made easy
+⚛️ Another React state management but made easy.
+
+[![npm version](https://badge.fury.io/js/re-xtate.svg)](https://badge.fury.io/js/re-xtate)
+
+
+## Instalation
+
+```bash
+npm i re-xtate
+// or
+yarn add re-xtate
+```
 
 ### Decentralized model
+The chosen model for designing the library is the decentralized model. In this model, many 
+small states are decoupled from the React tree, allowing components to connect only to the 
+states they use. Examples of libraries that follow this model are [Recoil](https://recoiljsorg/) 
+and [Jōtai](https://github.com/pmndrs/jotai/).
 
-Many small states decoupled from the React tree. Components only need to connect to the states they use.
-Examples of this model are libraries like [Recoil](https://recoiljs.org/) or [Jōtai](https://github.com/pmndrs/jotai/).
+The main idea behind this approach is to decentralize and atomize global states, effectively
+separating the data layer from the visualization layer. This offers several benefits:
 
-The idea is to decentralize and atomize the global states in order to completely decouple the data layer from the visualization layer.
-from the visualization layer. This brings us numerous benefits:
+- An easy-to-use API.
+- No need for a Context wrapper or prop drilling.
+- Compatibility with React 18 Concurrent Mode.
+- Support for computed states.
+- Faster and simpler code-splitting.
+- Extensibility with middleware or plugins.
 
-- Ease to use API.
-- No Context wrapper or prop drilling.
-- React 18 Concurrent Mode compatibility.
-- Computed states.
-- Faster and ease code-splitting.
-- Extensible with middleware or plugins.
-
-  And [Redux dev tools](https://github.com/reduxjs/redux-devtools) support via middleware! 😎
+Additionally, the library supports Redux dev tools via middleware! 😎
 
 ### `globalState`
 
-To create our global states we have the `globalState` method that has the following API:
+To create global states, we use the `globalState` method, which has the following API:
 
 - `initialValue: T`: the initial value of the global state.
-- `actionCreator?: ActionCreator<T, A>`: function that creates the actions to modify the status.
-- `config?: Config`: configuration object.
+- `actionCreator?: ActionCreator<T, A>`: a function that creates actions to modify the state.
+- `config?: Config`: a configuration object.
 
-Let's create some simple global states and see how to obtain and modify their values.
+Let's create some simple global states and see how to access and modify their values.
 
 ```ts
 const countState = globalState(0, null, { key: 'count' })
@@ -58,14 +70,21 @@ todosState.set((todos) => [
 ])
 ```
 
+In the example above, we define three global states: `countState`, `loadingState`, and `todosState`. 
+We initialize them with their initial values and specify a unique key for each state. To retrieve the
+current values of the states, we use the `get()` method on each state. And to update the states, we 
+use the `set()` method, passing the new value directly or providing a callback function to modify the
+existing value.
+
+
 
 ### `useGlobalState`
 
-When we need one of our components to subscribe to one of our global states we will use the `useGlobalState` hook.
-the `useGlobalState` hook.
+To subscribe to a global state within our components, we can utilize the `useGlobalState` hook. However, 
+if we only need to obtain the value of a global state without causing our component to re-render,
+we can still use the `get` method of our state.
 
-If on the contrary we only want to obtain the value of a global state avoiding that our component is rendered
-we will continue using the `get` method of our state.
+Here's an example of how to use the `useGlobalState` hook:
 
 ```tsx
 const todos = useGlobalState(todosState)
@@ -111,17 +130,28 @@ decrease()
 reset()
 ```
 
+In the code above, we define the actions object within the `globalState` method. It contains methods
+that allow us to update the state. In this example, we have increment, decrement, and reset actions 
+for the `countState`.
+
+To use these actions, we call them using the actions property of the state, like `countState.actions.increment()`.
+This will update the state accordingly.
+
+Alternatively, and as I personally suggest, we can destructure the actions from the actions object, making them
+more convenient to use directly, as shown in the example. This allows us to use the actions directly as `increment()`, 
+`decrement()`, and `reset()`.
+
 ### `globalComputed`
 
-We can create derived (or computed) states thanks to the `globalComputed` method, which caches its value and will only recalculate it when any of the states or selectors it depends on changes. 
-recalculate it when any of the states or selectors on which it depends changes. We can think of it as
-something similar to React's `useMemo` hook.
+**ReXtate**, derived states are referred to as "computed" states, and we can create them using the 
+`globalComputed` method. Computed states cache their value and recalculate it only when any of the states or 
+computes states they depend on change. Think of them as something similar to React's `useMemo` hook.
 
 `globalComputed` has the following API:
 
 - `state: State<T, A>`: the states it depends on.
-- actionCreator: ActionCreator<T, A>`: function that creates the actions to recalculate the state.
-- config: Config: configuration object.
+- `actionCreator: ActionCreator<T, A>`: function that creates the actions to recalculate the state.
+- `config?: Config`:  Config: configuration object.
   
 
 ```ts
@@ -141,7 +171,12 @@ const todoStats = globalComputed(
 )
 ```
 
-We can use our computations as if they were states:
+In the example above, we define three computed states: `totalTodos`, `completedTodos`, and `todoStats`. 
+`totalTodos` calculates the total number of todos from the `todosState`, while completedTodos filters
+the `todosState` to get only the completed todos. `todoStats` depends on both the `totalTodos` state 
+and the `completedTodos` computed state, and it calculates the number of completed todos and the percentage of completion.
+
+We can use computed states just like regular states:
 
 ```ts
 const { done, percent } = useGlobalState(todoStats)
@@ -152,7 +187,8 @@ completedTodos.get()
 
 ### Async states
 
-Handling asynchronous states is no mystery. Just call `set` when you need it!
+Handling asynchronous states is straightforward. Simply call the `set()` method when you need
+to update the state asynchronously.
 
 ```ts
 const todoState = state([])
@@ -204,9 +240,19 @@ const todosState = globalState(
 )
 ``` 
 
+In the code above, we have an example of handling asynchronous states. The `todoState` is a 
+simple state that can be updated using the set method.
 
-## TODOs
+We also define a function `getTodos` that performs an asynchronous operation, such as fetching
+data from a URL, and updates the todoState using the set method.
 
+Additionally, we demonstrate the creation of async actions within the `todosState`. The `todosState`
+has an action called fetch that fetches data from a specified URL and updates the state accordingly.
+
+
+##### Project status
+
+- [ ] Logo
 - [ ] Examples
   - [x] Basic (counter)
   - [x] Async (fetch)
@@ -216,5 +262,5 @@ const todosState = globalState(
   - [ ] Persist middleware
 - [x] Refactor (API, improvemnts)
 - [ ] Testing
-- [ ] Docs
-- [ ] Publish on NPM [npm](www.npmjs.com)
+- [-] Docs
+- [x] Publish on NPM [npm]([www.npmjs.com](https://badge.fury.io/js/re-xtate))
