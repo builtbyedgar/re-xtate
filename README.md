@@ -1,6 +1,6 @@
 # Reacts®
 
-A React state management made easy
+⚛️ A React state management made easy
 
 ## React state management models
 

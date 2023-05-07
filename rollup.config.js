@@ -1,28 +1,44 @@
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
+import dts from 'rollup-plugin-dts'
 import pkg from './package.json' assert { type: 'json' }
+
+const unminifiedOutputs = [
+  {
+    file: pkg.exports['.'].import.replace('.min.', '.'),
+    format: 'esm',
+  },
+  {
+    file: pkg.exports['.'].require.replace('.min.', '.'),
+    format: 'cjs',
+  },
+  // {
+  //   file: pkg.types,
+  //   format: 'esm',
+  //   plugins: [dts()],
+  // },
+]
 
 const minifiedOutputs = [
   {
     file: pkg.exports['.'].import,
     format: 'esm',
-    plugins: [terser()]
+    plugins: [terser()],
   },
   {
     file: pkg.exports['.'].require,
     format: 'cjs',
-    plugins: [terser()]
+    plugins: [terser()],
   },
 ]
 
-const unminifiedOutputs = minifiedOutputs.map(({ file, ...rest }) => ({
-  ...rest,
-  file: file.replace('.min.', '.'),
-}))
-
 export default {
-  input: 'index.ts',
-  output: [...unminifiedOutputs, ...minifiedOutputs],
   plugins: [typescript()],
-  external: ['react', 'use-sync-external-store'],
+  input: './src/index.ts',
+  output: [...unminifiedOutputs, ...minifiedOutputs],
+  external: [
+    'react',
+    'use-sync-external-store',
+    '@redux-devtools/extension',
+  ],
 }
