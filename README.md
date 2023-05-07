@@ -5,7 +5,11 @@
 🚨 **IMPORTANT:** ReXtate is still in beta. It has not been tested or hit hard. If you wish you can help me to improve it 😉. 
 
 
-[![npm version](https://badge.fury.io/js/re-xtate.svg)](https://badge.fury.io/js/re-xtate)
+[![package version](https://img.shields.io/github/package-json/v/builtbyedgar/re-xtate)](https://img.shields.io/github/package-json/v/builtbyedgar/re-xtate)
+[![TypeScript](https://img.shields.io/npm/types/re-xtate)](https://img.shields.io/npm/types/re-xtate)
+[![issues](https://img.shields.io/github/issues/builtbyedgar/re-xtate)](https://img.shields.io/github/issues/builtbyedgar/re-xtate)
+[![license](https://img.shields.io/github/license/builtbyedgar/re-xtate)](https://img.shields.io/github/license/builtbyedgar/re-xtate)
+<!-- [![npm version](https://badge.fury.io/js/re-xtate.svg)](https://badge.fury.io/js/re-xtate) -->
 
 
 ## Instalation
