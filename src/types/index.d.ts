@@ -55,3 +55,4 @@ export interface GlobalState<T> {
   
   export type ReduxDevtoolsPlugin = (options?: { name?: string }) => Plugin | undefined
   export type ReduxDevtoolsMiddleware = (options?: { name?: string }) => Middleware | undefined
+  

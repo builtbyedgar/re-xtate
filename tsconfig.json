@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
     "outDir": "dist",
     "jsx": "react",
     "skipLibCheck": false,
     "lib": ["ES2015", "DOM"],
     "allowSyntheticDefaultImports": true,
     "declaration": true,
+    "declarationDir": "./dist/types/",
+    "emitDeclarationOnly": true,
     "importHelpers": false,
+    "isolatedModules": true
   },
   "include": ["src/core", "src/hook", "src/middleware", "src/plugin", "src/utils"],
   "exclude": ["src/test"]
