@@ -1,36 +1,38 @@
 {
   "name": "re-xtate",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A React state management made easy",
   "author": "Edgar Bermejo",
   "license": "MIT",
-  "main": "package/dist/bundle-cjs.min.cjs",
-  "module": "package/dist/bundle-esm.min.mjs",
-  "source": "package/dist/index.ts",
-  "types": "package/dist/types.d.ts",
+  "main": "dist/bundle-cjs.min.cjs",
+  "module": "dist/bundle-esm.min.mjs",
+  "source": "dist/index.ts",
+  "types": "dist/types.d.ts",
   "type": "module",
   "keywords": [
     "react",
     "state",
     "management"
   ],
-  "homepage": "https://github.com/builtbyedgar/reacts",
+  "homepage": "https://github.com/builtbyedgar/re-xtate",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/builtbyedgar/reacts.git"
+    "url": "git+https://github.com/builtbyedgar/re-xtate.git"
   },
   "bugs": {
-    "url": "https://github.com/builtbyedgar/reacts/issues"
+    "url": "https://github.com/builtbyedgar/re-xtate/issues"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c"
+    "build": "npm run compile && npm run clean",
+    "compile": "rollup -c",
+    "clean": "rm -rf dist/core dist/hook dist/middleware dist/plugin dist/utils"
   },
   "exports": {
     ".": {
-      "types": "./package/dist/types.d.ts",
-      "import": "./package/dist/bundle-esm.min.mjs",
-      "require": "./package/dist/bundle-cjs.min.cjs"
+      "types": "./dist/types.d.ts",
+      "import": "./dist/bundle-esm.min.mjs",
+      "require": "./dist/bundle-cjs.min.cjs"
     }
   },
   "peerDependencies": {
@@ -42,7 +44,6 @@
     "@types/node": "^20.1.0",
     "@types/use-sync-external-store": "^0.0.3",
     "rollup": "^3.21.5",
-    "rollup-plugin-dts": "^5.3.0",
     "tslib": "^2.5.0"
   },
   "dependencies": {
