@@ -1,30 +1,41 @@
 {
   "name": "reacts",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A React state management made easy",
   "author": "Edgar Bermejo",
   "license": "MIT",
-  "main": "dist/bundle-cjs.min.cjs",
-  "module": "dist/bundle-esm.min.mjs",
-  "source": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "package/dist/bundle-cjs.min.cjs",
+  "module": "package/dist/bundle-esm.min.mjs",
+  "source": "package/dist/index.ts",
+  "types": "package/dist/types.d.ts",
   "type": "module",
   "keywords": [
     "react",
     "state",
     "management"
   ],
+  "homepage": "https://github.com/builtbyedgar/reacts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/builtbyedgar/reacts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/builtbyedgar/reacts/issues"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "npm run build",
-    "build": "npm run compile && npm run clean",
+    "pack": "npm run prepare",
+    "prepare": "rm -rf package && npm run build",
+    "build": "npm run compile && npm run copy && npm run clean",
     "compile": "rollup -c",
-    "clean": "rm -rf dist/core dist/hook dist/middleware dist/plugin dist/utils"
+    "copy": "cp src/types.d.ts ./package/dist && cp LICENSE ./package && cp README.md ./package && cp package.json ./package",
+    "clean": "rm -rf package/dist/core package/dist/hook dpackage/ist/middleware package/dist/plugin package/dist/utils"
   },
   "exports": {
     ".": {
-      "import": "./dist/bundle-esm.min.mjs",
-      "require": "./dist/bundle-cjs.min.cjs"
+      "types": "./package/dist/types.d.ts",
+      "import": "./package/dist/bundle-esm.min.mjs",
+      "require": "./package/dist/bundle-cjs.min.cjs"
     }
   },
   "peerDependencies": {

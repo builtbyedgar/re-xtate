@@ -2,31 +2,18 @@
 
 ⚛️ A React state management made easy
 
-## React state management models
-
-Currently, the models for managing the global state of React applications can be divided into two main areas:
-
-#### Centralized
-
-A single store combines all application states and connects to the components through a context and selectors (computed).
-Examples of this model are libraries such as [Redux](https://github.com/reduxjs/redux) or [Zustand](https://github.com/pmndrs/zustand/).
-
-#### Decentralized
+### Decentralized model
 
 Many small states decoupled from the React tree. Components only need to connect to the states they use.
 Examples of this model are libraries like [Recoil](https://recoiljs.org/) or [Jōtai](https://github.com/pmndrs/jotai/).
 
-
-### Decentralized Model
-
 The idea is to decentralize and atomize the global states in order to completely decouple the data layer from the visualization layer.
 from the visualization layer. This brings us numerous benefits:
 
-- Boilerplate-free and ease-to-use API.
+- Ease to use API.
 - No Context wrapper or prop drilling.
 - React 18 Concurrent Mode compatibility.
-- Memoized selectors.
-- Easy to persist the application state to browser store.
+- Computed states.
 - Faster and ease code-splitting.
 - Extensible with middleware or plugins.
 
@@ -220,9 +207,9 @@ const todosState = globalState(
 
 ## TODOs
 
-- [ ] Ejemplos
-  - [x] Basico (counter)
-  - [x] Asíncrono (fetch)
+- [ ] Examples
+  - [x] Basic (counter)
+  - [x] Async (fetch)
   - [x] Todo list
   - [ ] Nested selectors (selector(state, selector, otherSelector, () => ....))
   - [ ] Estress test (50.000 todo's)
@@ -230,4 +217,4 @@ const todosState = globalState(
 - [x] Refactor (API, improvemnts)
 - [ ] Testing
 - [ ] Docs
-- [ ] Crear paquete [npm](www.npmjs.com)
+- [ ] Publish on NPM [npm](www.npmjs.com)

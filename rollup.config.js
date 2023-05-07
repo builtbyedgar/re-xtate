@@ -7,16 +7,13 @@ const unminifiedOutputs = [
   {
     file: pkg.exports['.'].import.replace('.min.', '.'),
     format: 'esm',
+    sourcemap: true,
   },
   {
     file: pkg.exports['.'].require.replace('.min.', '.'),
     format: 'cjs',
+    sourcemap: true,
   },
-  // {
-  //   file: pkg.types,
-  //   format: 'esm',
-  //   plugins: [dts()],
-  // },
 ]
 
 const minifiedOutputs = [
@@ -36,9 +33,5 @@ export default {
   plugins: [typescript()],
   input: './src/index.ts',
   output: [...unminifiedOutputs, ...minifiedOutputs],
-  external: [
-    'react',
-    'use-sync-external-store',
-    '@redux-devtools/extension',
-  ],
+  external: ['react', 'use-sync-external-store', '@redux-devtools/extension'],
 }
